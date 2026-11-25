@@ -2,6 +2,7 @@
 import argparse
 import json
 from pathlib import Path
+from evidence_bundle import pack, replay_evidence
 
 EVENTS = {"created", "delivered", "retry"}
 
@@ -62,12 +63,20 @@ if __name__ == "__main__":
     reduce.add_argument("policy", type=Path)
     replay = sub.add_parser("replay")
     replay.add_argument("bundle", type=Path)
+    export = sub.add_parser("pack-timeline")
+    export.add_argument("timeline", type=Path)
     args = parser.parse_args()
     try:
         if args.command == "reduce":
             result = reduce_case(json.loads(args.events.read_text()), json.loads(args.policy.read_text()))
+        elif args.command == "pack-timeline":
+            print(json.dumps(pack(json.loads(args.timeline.read_text())), indent=2))
+            raise SystemExit(0)
         else:
             bundle = json.loads(args.bundle.read_text())
+            if bundle.get("schema") == "bundle.v1":
+                print(json.dumps(replay_evidence(bundle), indent=2))
+                raise SystemExit(0)
             if bundle.get("status") != "ready" or bundle.get("oracle") != "duplicate_delivery_v1":
                 raise ValueError("dossier ou oracle inconnu")
             reproduced = duplicate_delivery(bundle["events"])

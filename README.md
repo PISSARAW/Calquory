@@ -36,3 +36,14 @@ Le socle accepte un journal JSON structuré et l’oracle intégré `duplicate_d
 ## Premier chantier à reprendre
 
 Introduire un second fichier de commandes lié aux événements. Préserver les références entre fichiers et rejouer le même échec sur une copie indépendante du dossier. Ajouter une politique qui rend le cas impossible à partager.
+
+## Préparer un dossier commun de reprise et d’accès
+
+Le profil d’export fixe accepte la chronologie `timeline.v1` de Horvessane. Il conserve les références locales numérotées, les relations d’ordre et les comparaisons de présence, d’égalité ou de durée. Les noms, les empreintes et les instants absolus sont retirés. Le rejeu recalcule le constat sur les valeurs projetées. La topologie temporelle et le type de constat demeurent visibles dans le dossier.
+
+```sh
+python3 -m calquory pack-timeline chronologie.json > dossier-partageable.json
+python3 -m calquory replay dossier-partageable.json > constats.json
+```
+
+L’exercice complet se lance avec `make demo-suite` depuis [Horvessane](https://github.com/PISSARAW/Horvessane).
