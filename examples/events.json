@@ -1,0 +1,24 @@
+[
+  {
+    "order_id": "demo-777",
+    "event": "created",
+    "email": "client@example.invalid"
+  },
+  {
+    "order_id": "demo-330",
+    "event": "delivered"
+  },
+  {
+    "order_id": "demo-777",
+    "event": "delivered",
+    "internal": "référence du dossier de test"
+  },
+  {
+    "order_id": "demo-777",
+    "event": "retry"
+  },
+  {
+    "order_id": "demo-777",
+    "event": "delivered"
+  }
+]
