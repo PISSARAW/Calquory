@@ -55,7 +55,7 @@ def reduce_case(rows, policy):
     return {"status": "ready", "oracle": "duplicate_delivery_v1", "events": safe}
 
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
     reduce = sub.add_parser("reduce")
@@ -85,3 +85,7 @@ if __name__ == "__main__":
         parser.exit(2, "Format de dossier ou de politique invalide.\n")
     print(json.dumps(result, indent=2, ensure_ascii=False))
     raise SystemExit(0 if result["status"] in ("ready", "reproduced") else 1)
+
+
+if __name__ == "__main__":
+    main()
